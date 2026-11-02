@@ -26,8 +26,33 @@ Dash Pages discovers user-facing modules under `pages/`. Current examples includ
 - Amortization schedule
 - Forex technical-analysis signals
 - Live chart and position sizing
+- A client intake form that forwards submissions to the n8n Client Onboarding main workflow
 
 The repository also contains older or alternative modules under `sides/` and non-page helper modules. Those files are retained for project history and are not all exposed as app routes.
+
+## n8n Client Onboarding form
+
+The `/n8n-client-onboarding` page mirrors the main form in the
+[n8n Client Onboarding workflow repository](https://github.com/raimiazeez26/n8n-client-onboarding).
+It sends submissions to the main workflow's Form Trigger URL from the Dash
+server. The follow-up workflow is schedule-triggered and does not need a second
+external intake form.
+
+Required fields are full name, email address, company name, at least one service,
+a project description, and confirmation that only fictional demo data is being
+submitted. Company size, industry, phone, start date, estimated budget, and
+communication channel are optional.
+
+Configure `N8N_CLIENT_ONBOARDING_WEBHOOK_URL` in the app server environment
+using the active Production URL shown by the n8n Form Trigger. For local
+development, copy `.env.example` to `.env` and set the value there. The app
+loads `.env` on startup. Keep the URL private and never place it in source code
+or browser JavaScript.
+Without this setting, the form displays a configuration message and does not
+send any data.
+
+The form limits input lengths and submission time, but does not provide CAPTCHA,
+rate limiting, or spam filtering. Add those controls before public production use.
 
 ## Repository layout
 
@@ -45,7 +70,8 @@ ARIMA and GARCH retrieve OHLC candles on demand through `pages/market_data.py`; 
 
 ## Run locally
 
-Use a Python environment compatible with the pinned packages in `requirements.txt`.
+Use Python 3.14, as declared in `.python-version`, and install the compatible
+dependencies listed in `requirements.txt`.
 
 1. Clone the repository and enter its directory:
    ```bash
@@ -88,14 +114,14 @@ The included `Procfile` starts the WSGI server with:
 gunicorn app:server --timeout 600
 ```
 
-Configure the hosting service to install `requirements.txt` and use the repository root as the working directory. Confirm the platform's Python version explicitly; the dependency pins are old and should be refreshed and tested before choosing a newer runtime.
+Configure the hosting service to install `requirements.txt`, use the repository root as the working directory, and set `N8N_CLIENT_ONBOARDING_WEBHOOK_URL` as a server-side config variable. Keep this value private. The supported Python runtime is recorded in `.python-version`.
 
 ## Maintenance notes
 
 - Do not commit `__pycache__/`, `*.py[cod]`, virtual environments, or local environment files.
 - Keep Dash, Flask, Werkzeug, NumPy, SciPy, scikit-learn, statsmodels, and pmdarima versions mutually compatible.
 - Prefer bounded network calls, explicit data validation, and user-facing handling for upstream data failures.
-- Validate every page after dependency changes. A lightweight CI workflow should compile Python files, install the declared requirements, and smoke-test app startup.
+- GitHub Actions installs the declared requirements, compiles the app modules, and smoke-tests Dash startup.
 - Move legacy modules out of auto-discovered `pages/` or remove them only after confirming they are not in use.
 
 ## License and data attribution

@@ -1,5 +1,7 @@
 #import libs
 
+from pathlib import Path
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -19,7 +21,6 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
 ASSETS_DIR = Path(__file__).resolve().parents[1] / "assets"
-
 def process_customer():
     data = pd.read_csv(ASSETS_DIR / "customers.csv")
     del(data["CustomerID"])

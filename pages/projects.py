@@ -31,6 +31,15 @@ def project_card(title, description, technology, links):
 def layout():
     projects = [
         (
+            "Automated Client Onboarding",
+            "An n8n onboarding workflow that validates client intake, creates a structured client record and workspace, prepares onboarding tasks, and sends notifications. This app includes an external intake form for the main workflow.",
+            "n8n, Python, Google Sheets, Google Drive, Gmail, Dash",
+            [
+                ("Open onboarding form", "/n8n-client-onboarding"),
+                ("Workflow source", "https://github.com/raimiazeez26/n8n-client-onboarding"),
+            ],
+        ),
+        (
             "Interactive Resume & Analytics",
             "A multi-page Dash application with financial engineering, data science, and analytics demonstrations, including ARIMA, GARCH, option pricing, clustering, and dashboards.",
             "Python, Dash, pandas, Plotly, scikit-learn",

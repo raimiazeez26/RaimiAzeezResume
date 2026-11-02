@@ -15,11 +15,11 @@ def sidebar():
                     active="exact",
                 )
             )
-        elif page["path"]=="/projects":
+        elif page["path"] in {"/projects", "/n8n-client-onboarding"}:
             nav_links.append(
                 dbc.NavLink(
                     [
-                        html.Div("Projects", className="ms-2"),
+                        html.Div(page["name"], className="ms-2"),
                     ],
                     href=page["path"],
                     active="exact",

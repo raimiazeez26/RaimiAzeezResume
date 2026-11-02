@@ -7,6 +7,10 @@ import dash_bootstrap_components as dbc
 from dash import Dash, Input, Output, State, html
 from dash_bootstrap_templates import ThemeSwitchAIO
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 FONT_AWESOME = "https://use.fontawesome.com/releases/v6.4.0/css/all.css"
 
 app = Dash(
@@ -37,7 +41,7 @@ header = dbc.Navbar(
     dbc.Container(
         [
             dbc.NavbarBrand("Raimi Azeez Babatunde", href="/"),
-            dbc.NavbarToggler(id="navbar-toggler", title="Toggle navigation"),
+            dbc.NavbarToggler(id="navbar-toggler"),
             dbc.Collapse(
                 navigation,
                 id="navbar-collapse",
