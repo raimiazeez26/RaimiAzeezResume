@@ -113,7 +113,10 @@ def _metrics(trades, starting_balance):
     net = pd.to_numeric(trades["Net Profit"], errors="coerce").fillna(0)
     gains = net[net > 0].sum()
     losses = abs(net[net < 0].sum())
-    equity = trades["pnl"].astype(float)
+    equity = pd.concat(
+        [pd.Series([starting_balance], dtype=float), trades["pnl"].astype(float)],
+        ignore_index=True,
+    )
     drawdown = equity / equity.cummax() - 1
     values = [
         ("Trades", len(trades)),

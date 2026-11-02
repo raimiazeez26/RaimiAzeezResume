@@ -1,4 +1,4 @@
-from Backtests import get_data, signal, Strategy, Position, calc_metrics
+from Backtests import get_data, signal, Strategy
 import quantstats as qs
 
 # extend pandas functionality with metrics, etc.
