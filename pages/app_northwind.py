@@ -40,12 +40,10 @@ def total_employees(df):
 
 
 def avg_days_shipping(df):
-    data = df[df['daysToShip'].notnull()]
-    k = sum(data['daysToShip']) / len(data['daysToShip'])
-    if k == float(np.NaN):
+    days = pd.to_numeric(df['daysToShip'], errors='coerce').dropna()
+    if days.empty:
         return 0
-    else:
-        return round(float(k), 1)
+    return round(float(days.mean()), 1)
 
 
 def top_products(df):

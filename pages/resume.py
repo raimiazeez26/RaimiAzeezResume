@@ -1,532 +1,277 @@
-#import
+"""Structured resume page for Raimi Azeez Babatunde."""
+
 import dash
-from dash import html, dcc
 import dash_bootstrap_components as dbc
+from dash import html
 
-dash.register_page(__name__, order=3)
 
-#interest buttons
-interests_buttons = html.Div(
+dash.register_page(__name__, order=3, name="Resume")
+
+
+def section(title, children):
+    return html.Section(
+        [
+            html.H2(title, className="h4 border-bottom pb-2 mb-3"),
+            children,
+        ],
+        className="mb-4",
+    )
+
+
+def experience(company, role, dates, location, bullets):
+    return dbc.Card(
+        dbc.CardBody(
+            [
+                dbc.Row(
+                    [
+                        dbc.Col(html.H3(company, className="h5 mb-1"), md=8),
+                        dbc.Col(html.P(location, className="text-muted text-md-end mb-1"), md=4),
+                    ]
+                ),
+                dbc.Row(
+                    [
+                        dbc.Col(html.P(role, className="fw-semibold mb-2"), md=8),
+                        dbc.Col(html.P(dates, className="text-muted text-md-end mb-2"), md=4),
+                    ]
+                ),
+                html.Ul([html.Li(item) for item in bullets], className="mb-0"),
+            ]
+        ),
+        className="mb-3",
+    )
+
+
+def project(title, description, tools, href):
+    return dbc.Col(
+        dbc.Card(
+            dbc.CardBody(
+                [
+                    html.H3(title, className="h6"),
+                    html.P(description, className="small"),
+                    html.P([html.Strong("Tools: "), tools], className="small text-muted"),
+                    html.A("View project", href=href, target="_blank", rel="noopener noreferrer"),
+                ]
+            ),
+            className="h-100",
+        ),
+        xs=12,
+        md=6,
+        className="mb-3",
+    )
+
+
+layout = dbc.Container(
     [
-        dbc.Button("Finance", outline=True, color="primary", className="me-1"),
-        dbc.Button("Analytics", outline=True, color="primary", className="me-1"),
-        dbc.Button("Business", outline=True, color="primary", className="me-1"),
-        dbc.Button("Technology", outline=True, color="primary", className="me-1"),
-        dbc.Button("Algorithmic Trading", outline=True, color="primary", className="me-1"),
-        ]
+        dbc.Card(
+            dbc.CardBody(
+                dbc.Row(
+                    [
+                        dbc.Col(
+                            html.Img(
+                                src=dash.get_asset_url("Raimi Portrait.jpg"),
+                                alt="Portrait of Raimi Azeez Babatunde",
+                                className="img-fluid rounded",
+                                style={
+                                    "width": "100%",
+                                    "maxHeight": "320px",
+                                    "objectFit": "cover",
+                                    "objectPosition": "center 25%",
+                                },
+                            ),
+                            xs=12,
+                            md=3,
+                            className="mb-3 mb-md-0",
+                        ),
+                        dbc.Col(
+                            [
+                                html.H1("Raimi Azeez Babatunde", className="display-6 fw-bold"),
+                                html.P("Data Scientist | Financial Engineering | Analytics", className="lead"),
+                                html.P(
+                                    "Data scientist and financial analytics professional working across machine learning, "
+                                    "time-series analysis, trading research, and business intelligence. Experienced in "
+                                    "turning data into models, dashboards, and workflow tools that support practical decisions."
+                                ),
+                                dbc.Row(
+                                    [
+                                        dbc.Col(html.A("Email", href="mailto:raimiazeez26@gmail.com"), xs=6, md="auto"),
+                                        dbc.Col(html.A("Phone", href="tel:+2348025831825"), xs=6, md="auto"),
+                                        dbc.Col(html.A("Website", href="https://raimiazeez26.github.io/", target="_blank", rel="noopener noreferrer"), xs=6, md="auto"),
+                                        dbc.Col(html.A("LinkedIn", href="https://www.linkedin.com/in/raimi-azeez/", target="_blank", rel="noopener noreferrer"), xs=6, md="auto"),
+                                        dbc.Col(html.A("GitHub", href="https://github.com/raimiazeez26", target="_blank", rel="noopener noreferrer"), xs=6, md="auto"),
+                                    ],
+                                    className="g-2",
+                                ),
+                            ],
+                            xs=12,
+                            md=9,
+                        ),
+                    ],
+                    align="center",
+                )
+            ),
+            className="mb-4 shadow-sm",
+        ),
+        section(
+            "Core Skills",
+            dbc.Row(
+                [
+                    dbc.Col(
+                        [
+                            html.H3("Data Science", className="h6"),
+                            html.P("Python, machine learning, NLP, statistical analysis, time-series analysis, web scraping"),
+                        ],
+                        md=4,
+                    ),
+                    dbc.Col(
+                        [
+                            html.H3("Analytics & Engineering", className="h6"),
+                            html.P("SQL, data exploration, API integration, data visualization, Power BI, Excel, Tableau"),
+                        ],
+                        md=4,
+                    ),
+                    dbc.Col(
+                        [
+                            html.H3("Finance & Leadership", className="h6"),
+                            html.P("Financial modeling, trading research, business strategy, project coordination, stakeholder communication"),
+                        ],
+                        md=4,
+                    ),
+                ],
+                className="g-3",
+            ),
+        ),
+        section(
+            "Professional Experience",
+            [
+                experience(
+                    "Xavier McAllister Capital",
+                    "Data Scientist",
+                    "December 2021 – Present",
+                    "Lagos, Nigeria",
+                    [
+                        "Developed and deployed an LLM-powered chatbot; reported outcomes included 30% higher customer engagement and 20% higher profit.",
+                        "Coordinated analytics projects and aligned delivery with business objectives, contributing to a reported 20% increase in operational efficiency.",
+                        "Analyzed historical and technical-indicator data in Python to identify trading opportunities and support portfolio decisions.",
+                        "Partnered with cross-functional teams to turn customer and market data into insights for business planning.",
+                    ],
+                ),
+                experience(
+                    "Xavier McAllister Capital",
+                    "Financial & Investment Data Analyst",
+                    "September 2021 – December 2021",
+                    "Lagos, Nigeria",
+                    [
+                        "Supported daily trading and portfolio analysis, contributing to investment reporting and decision-making.",
+                        "Assisted with risk-assessment algorithms and data workflows to improve risk monitoring.",
+                        "Collected, cleaned, and analyzed data from user interactions and financial transactions; prepared monthly trade activity reports.",
+                    ],
+                ),
+                experience(
+                    "Hamoye",
+                    "Data Science Intern",
+                    "September 2021 – November 2021",
+                    "Remote",
+                    [
+                        "Built machine-learning models for image recognition and time-series prediction exercises.",
+                        "Performed exploratory analysis and visualization and collaborated on applied data-science case studies.",
+                    ],
+                ),
+                experience(
+                    "Daydream Pictures",
+                    "Business Development Executive",
+                    "September 2014 – September 2021",
+                    "Lagos, Nigeria",
+                    [
+                        "Developed plans for revenue and client-base growth and maintained long-term client relationships.",
+                        "Managed social media channels that grew to more than 13,000 followers across platforms.",
+                    ],
+                ),
+            ],
+        ),
+        section(
+            "Selected Projects",
+            dbc.Row(
+                [
+                    project(
+                        "Automated Client Onboarding",
+                        "An n8n workflow that captures client requirements, validates intake, and coordinates onboarding records and tasks.",
+                        "n8n, Python, Google Sheets, Google Drive, Gmail",
+                        "https://github.com/raimiazeez26/n8n-client-onboarding",
+                    ),
+                    project(
+                        "Job Application Tracker Automation",
+                        "n8n workflows for recording applications, requesting job-to-CV matching, and updating application status.",
+                        "n8n, AI matching, Google Sheets",
+                        "https://github.com/raimiazeez26/n8n-client-onboarding",
+                    ),
+                    project(
+                        "Interactive Resume & Analytics",
+                        "A multi-page app with financial engineering, forecasting, volatility, clustering, and dashboard demonstrations.",
+                        "Python, Dash, pandas, Plotly, scikit-learn",
+                        "https://github.com/raimiazeez26/RaimiAzeezResume",
+                    ),
+                    project(
+                        "MT5pyTrader",
+                        "A Python module for connecting algorithmic trading scripts with MetaTrader 5.",
+                        "Python, MetaTrader 5",
+                        "https://github.com/raimiazeez26/MT5pytrader",
+                    ),
+                ],
+                className="g-3",
+            ),
+        ),
+        section(
+            "Education",
+            [
+                dbc.Row(
+                    [
+                        dbc.Col(html.Strong("WorldQuant University"), md=4),
+                        dbc.Col("MSc, Financial Engineering", md=5),
+                        dbc.Col("January 2023 – Present", md=3, className="text-md-end text-muted"),
+                    ],
+                    className="mb-2",
+                ),
+                dbc.Row(
+                    [
+                        dbc.Col(html.Strong("Ustacky"), md=4),
+                        dbc.Col("Data Science MicroDegree", md=5),
+                        dbc.Col("March 2021 – June 2021", md=3, className="text-md-end text-muted"),
+                    ],
+                    className="mb-2",
+                ),
+                dbc.Row(
+                    [
+                        dbc.Col(html.Strong("Lagos State University"), md=4),
+                        dbc.Col("BSc, Fisheries | CGPA 4.37/5.00", md=5),
+                        dbc.Col("2011 – 2016", md=3, className="text-md-end text-muted"),
+                    ]
+                ),
+            ],
+        ),
+        section(
+            "Professional Certifications",
+            dbc.ListGroup(
+                [
+                    dbc.ListGroupItem(
+                        [html.Strong("Senior Chartered Public Manager (SCPM)"), " — Chartered Institute of Public Management of Nigeria (CIPMN)"]
+                    ),
+                    dbc.ListGroupItem(
+                        [html.Strong("Business Intelligence & Data Analyst (BIDA)"), " — Corporate Finance Institute (2023)"]
+                    ),
+                    dbc.ListGroupItem(
+                        [html.Strong("Financial Modeling & Valuation Analyst (FMVA)"), " — Corporate Finance Institute (2022)"]
+                    ),
+                    dbc.ListGroupItem(
+                        [html.Strong("Machine Learning for Finance"), " — Udemy (2022)"]
+                    ),
+                    dbc.ListGroupItem(
+                        [html.Strong("AWS Machine Learning Foundations"), " — Udacity (2022)"]
+                    ),
+                ],
+                flush=True,
+            ),
+        ),
+    ],
+    fluid=True,
+    className="py-4",
 )
-
-# resume sample template from https://zety.com/
-layout = html.Div([
-    dbc.Row([
-
-        #Biodata
-       # dbc.Col([
-        dcc.Markdown('# Raimi Azeez Babatunde', style={'textAlign':'center'}),
-        dcc.Markdown('#### Data Scientist', style={'textAlign':'center'}),
-        html.Hr(),
-
-        dbc.Row([
-            dbc.Col([
-                dbc.Col([
-                    html.I(className="fa-solid fa-envelope"),  # <i class="fa-solid fa-envelope"></i>
-                    dcc.Markdown('###### &ensp; raimiazeez26@gmail.com',
-                                 style={'textAlign': 'center'}),
-                ], width={"size": 3}, className='d-inline-flex'),
-
-                dbc.Col([
-                    html.I(className="fa-solid fa-phone"),  # <i class="fa-solid fa-envelope"></i>
-                    dcc.Markdown('###### &ensp; +2348025831825',
-                                 style={'textAlign': 'center'}),
-                ], width={"size": 3}, className='d-inline-flex'),
-                dbc.Col([
-                    html.I(className="fa-regular fa-globe-pointer p-1"),  # <i class="fa-brands fa-kaggle"></i>
-                    html.A('Website  ', href='https://raimiazeez26.github.io/', target="_blank",
-                           style={'textAlign': 'center'})
-                ], width={"size": 3}, className=' d-inline-flex', style={'textAlign': 'center'}),
-            ], width='9', style={'align': 'right'})
-        ], justify="center", className='pt-1 pb-1'),
-
-        # social media
-        dbc.Row([
-            dbc.Col([
-                dbc.Col([
-                    html.I(className="fa-brands fa-github p-1"),  # <i class="fa-brands fa-github"></i>
-                    html.A('GitHub  ', href='https://github.com/raimiazeez26', target="_blank",
-                           style={'textAlign': 'center'})
-                ], width={"size": 2}, className='d-inline-flex'),
-
-                dbc.Col([
-                    html.I(className="fa-brands fa-linkedin p-1"),
-                    html.A('LinkedIn  ', href='https://www.linkedin.com/in/raimi-azeez/', target="_blank",
-                           style={'textAlign': 'left'})
-                ], width={"size": 2}, className='d-inline-flex'),
-
-                dbc.Col([
-                    html.I(className="fa-brands fa-medium p-1"),
-                    html.A('Medium  ', href='https://medium.com/@raimiazeez26', target="_blank",
-                           style={'textAlign': 'left'})
-                ], width={"size": 2}, className='d-inline-flex'),
-
-                dbc.Col([
-                    html.I(className="fa-brands fa-kaggle p-1"),  # <i class="fa-brands fa-kaggle"></i>
-                    html.A('Kaggle  ', href='https://www.kaggle.com/raimiazeezbabatunde', target="_blank",
-                           style={'textAlign': 'left'})
-                ], width={"size": 2}, className='d-inline-flex'),
-            ], width='9', style={'align': 'center'})
-        ], justify="center", style={'align': 'center'}),
-
-        # ], width={"size": 8}, className= 'flex-column p-3'), #, "offset": 4
-    ], justify="center", style={'align': 'center'}),
-
-    html.Hr(),
-    dbc.Row([
-        dbc.Col([
-            dcc.Markdown(" I am a Data Scientist with vast and efficient knowledge in using "
-                   "python, data analysis, visualization,  and machine learning models & techniques to deliver "
-                   "insights and implement action-oriented solutions to business problems. My goal is to work in "
-                   "an environment where my potential and capabilities will be developed and utilized to attain "
-                   " the organization's goals and make a real-life impact.",
-                   # ' \n',
-                   style={'textAlign': 'left', 'white-space': 'pre-wrap'},
-                   # className='flex-column'
-                   ),
-            ], width={"size": 9, "offset": 1}, className='flex-column',
-                style={'textAlign': 'center'}),
-
-    ], justify="center", style={'align': 'center'}),
-
-    #Skills
-    html.Hr(),
-    dcc.Markdown('### Core Competencies', style={'textAlign': 'center'}),
-    html.Hr(),
-    dbc.Row([
-        dbc.Col([
-            dcc.Markdown('''
-        * Python Programming
-        * Machine Learning
-        * Natural Language Processing (NLP)
-        * Web Scraping
-        * Statistical Analysis
-        ''')
-        ], width={"size": 3, "offset": 1},
-            style={'textAlign': 'left'}),
-        dbc.Col([
-            dcc.Markdown('''
-        * Time Series Analysis
-        * Data Exploration & Analysis
-        * Data Visualization
-        * Microsoft PowerBI & Excel
-        * [Tableau](https://public.tableau.com/app/profile/raimi.azeez.babatunde)
-        ''')
-        ], width=3, style={'textAlign': 'left'}),
-        dbc.Col([
-            dcc.Markdown('''
-        * API Integration
-        * SQL & DBMS
-        * AWS & Azure Data Studio
-        * Leadership
-        * Business Strategy
-        ''')
-        ], width=3, style={'textAlign': 'left'})
-    ], justify='center'),
-
-
-    # #Work History
-    html.Hr(),
-    dcc.Markdown('### Professional Experience', style={'textAlign': 'center'}),
-    html.Hr(),
-    #Experience 1
-    dbc.Row([
-        #company, location
-        dbc.Row([
-            dbc.Col([
-                dcc.Markdown('#### Xavier Mcallister Capital',
-                             style={'textAlign': 'left'}),
-            ],width = '4'),
-
-            dbc.Col([
-                dcc.Markdown('###### Lagos, Nigeria',
-                             style={'textAlign': 'right'})
-            ], width='4'),
-        ], justify = 'center'),
-
-        # Job Title, Date
-        dbc.Row([
-            dbc.Col([
-                dcc.Markdown('##### Data Scientist',
-                             style={'textAlign': 'left'}),
-            ], width='4'),
-
-            dbc.Col([
-                dcc.Markdown('###### Dec. 2021 - Present',
-                             style={'textAlign': 'right'})
-            ], width='4'),
-        ], justify='center'),
-
-
-        # Responsibilities
-        dbc.Row([
-            dbc.Col([
-                html.Ul([
-                    html.Li(
-                            'Developed and deployed a cutting-edge chatbot using Large Language Models (LLM) technology, resulting '
-                            'in a 30% increase in customer engagement and a 20% increase in profit.'),
-                    html.Li('Coordinated the execution of data analytics projects, aligning objectives with business goals, resulting in a '
-                            '20% increase in overall efficiency'),
-                    html.Li('Analyzed historical and technical indicator data using Python programming to identify profitable trading '
-                            'opportunities, resulting in an increase of 20% in overall portfolio returns.'),
-                    html.Li('Collaborated with cross-functional teams to gather and analyze large datasets, identifying key trends and '
-                            'patterns that informed strategic business decisions, resulting in a 20% increase in market share.'),
-                    html.Li('Actively pursued professional development, earning certifications in areas such as '
-                            'Business Intelligence & Data Analytics and Machine Learning..'),
-                ], style={'textAlign': 'left'})
-            ], width='8')
-        ], justify='center'),
-    ]),
-    html.Br(),
-
-    # Experience 2
-    dbc.Row([
-        # company, location
-        dbc.Row([
-            dbc.Col([
-                dcc.Markdown('#### Xavier Mcallister Capital',
-                             style={'textAlign': 'left'}),
-            ], width='4'),
-
-            dbc.Col([
-                dcc.Markdown('###### Lagos, Nigeria',
-                             style={'textAlign': 'right'})
-            ], width='4'),
-        ], justify='center'),
-
-        # Job Title, Date
-        dbc.Row([
-            dbc.Col([
-                dcc.Markdown('##### Financial & Investment Data Analyst',
-                             style={'textAlign': 'left'}),
-            ], width='4'),
-
-            dbc.Col([
-                dcc.Markdown('###### Sept. 2021 - Dec. 2021',
-                             style={'textAlign': 'right'})
-            ], width='4'),
-        ], justify='center'),
-
-        # Responsibilities
-        dbc.Row([
-            dbc.Col([
-                html.Ul([
-                    html.Li(
-                        'Executed daily trades, yielding a profitable trading portfolio and contributing to a 10% increase in '
-                            'investment returns.'),
-                    html.Li('Assisted in developing algorithms for risk assessment, minimizing potential losses by 18% through '
-                            'improved risk management.'),
-                    html.Li('Extracted, cleaned, and processed extensive datasets from diverse sources, including user interactions '
-                            'and financial transactions reducing project timelines and analysis by 15%.'),
-                    html.Li('Generated and presented monthly trade activity reports, enhancing transparency and communication '
-                            'within the team and with stakeholders.'),
-                ], style={'textAlign': 'left'})
-            ], width='8'),
-        ], justify='center'),
-
-    ]),
-    html.Br(),
-
-    #Experience 3
-    dbc.Row([
-        #company, location
-        dbc.Row([
-            dbc.Col([
-                dcc.Markdown('#### Hamoye',
-                             style={'textAlign': 'left'}),
-            ], width = '4'),
-
-            dbc.Col([
-                dcc.Markdown('###### Remote',
-                             style={'textAlign': 'right'})
-            ], width='4'),
-        ], justify = 'center'),
-
-        # Job Title, Date
-        dbc.Row([
-            dbc.Col([
-                dcc.Markdown('##### Data Science Intern',
-                             style={'textAlign': 'left'}),
-            ], width='4'),
-
-            dbc.Col([
-                dcc.Markdown('###### Sept. 2021 - Nov. 2021',
-                             style={'textAlign': 'right'})
-            ], width='4'),
-        ], justify='center'),
-
-
-        # Responsibilities
-        dbc.Row([
-            dbc.Col([
-                html.Ul([
-                    html.Li(
-                        'Successfully developed machine learning models such as image recognition & time series prediction models.'),
-                    html.Li('Worked with cross-functional teams on different case studies, identifying machine learning solutions to real-world problems.'),
-                    html.Li('Performed exploratory data analysis and visualization to prepare data for modelling.'),
-                ], style={'textAlign': 'left'})
-            ], width='8')
-
-            ], justify='center'),
-
-    ]),
-    html.Br(),
-
-    #Experience 4
-    dbc.Row([
-            #company, location
-            dbc.Row([
-                dbc.Col([
-                    dcc.Markdown('#### Daydream Pictures',
-                                 style={'textAlign': 'left'}),
-                ], width = '4'),
-
-                dbc.Col([
-                    dcc.Markdown('###### Lagos, Nigeria',
-                                 style={'textAlign': 'right'})
-                ], width='4'),
-            ], justify = 'center'),
-
-            # Job Title, Date
-            dbc.Row([
-                dbc.Col([
-                    dcc.Markdown('##### Business Development Executive',
-                                 style={'textAlign': 'left'}),
-                ], width='4'),
-
-                dbc.Col([
-                    dcc.Markdown('###### Sept. 2014 - Sept. 2021',
-                                 style={'textAlign': 'right'})
-                ], width='4'),
-            ], justify='center'),
-
-
-            # Responsibilities
-            dbc.Row([
-                dbc.Col([
-                    html.Ul([
-                        html.Li(
-                            'Set goals and plans for business revenue and client base growth.'),
-                        html.Li('Maintained client relationship and ensure up to retention up to 10years'),
-                        html.Li('Managed its social media from to over 13k+ followers on multiple social media accounts.'),
-                    ], style={'textAlign': 'left'})
-                ], width='8')
-
-                ], justify='center'),
-
-        ]),
-    html.Br(),
-
-    #Education
-    html.Hr(),
-    dcc.Markdown('### Education', style={'textAlign': 'center'}),
-    html.Hr(),
-
-    # Education 1
-    dbc.Row([
-        # University
-        dbc.Row([
-            dbc.Col([
-                dcc.Markdown('#### WorldQuant University',
-                             style={'textAlign': 'left'}),
-            ], width='4'),
-
-            dbc.Col([
-                dcc.Markdown('###### Louisiana, USA',
-                             style={'textAlign': 'right'})
-            ], width='4'),
-        ], justify='center'),
-
-        # Course
-        dbc.Row([
-            dbc.Col([
-                dcc.Markdown('###### MSc Financial Engineering',
-                             style={'textAlign': 'left'}),
-            ], width='4'),
-
-            dbc.Col([
-                dcc.Markdown('###### Jan. 2023 - Present',
-                             style={'textAlign': 'right'})
-            ], width='4'),
-        ], justify='center'),
-
-    ]),
-    html.Br(),
-
-    # Education 2
-    dbc.Row([
-        # University
-        dbc.Row([
-            dbc.Col([
-                dcc.Markdown('#### Ustacky',
-                             style={'textAlign': 'left'}),
-
-            ], width='8'),
-
-        ], justify='center'),
-
-        # Course
-        dbc.Row([
-            dbc.Col([
-                dcc.Markdown('###### Data Science MicroDegree',
-                             style={'textAlign': 'left'}),
-            ], width='4'),
-
-            dbc.Col([
-                dcc.Markdown('###### Mar. 2021 - Jun. 2021',
-                             style={'textAlign': 'right'})
-            ], width='4'),
-        ], justify='center'),
-
-    ]),
-    html.Br(),
-
-    # Education 3
-    dbc.Row([
-        # University
-        dbc.Row([
-            dbc.Col([
-                dcc.Markdown('#### Lagos State University',
-                             style={'textAlign': 'left'}),
-            ], width='4'),
-
-            dbc.Col([
-                dcc.Markdown('###### Ojo Lagos, Nigeria',
-                             style={'textAlign': 'right'})
-
-            ], width='4'),
-
-        ], justify='center'),
-
-        # Course
-        dbc.Row([
-            dbc.Col([
-                dcc.Markdown('###### Fisheries',
-                             style={'textAlign': 'left'}),
-            ], width='4'),
-
-            dbc.Col([
-                dcc.Markdown('###### Apr. 2011 - Jan. 2016',
-                             style={'textAlign': 'right'})
-            ], width='4'),
-        ], justify='center'),
-
-        # Responsibilities
-        dbc.Row([
-            dbc.Col([
-                html.Ul([
-                    html.Li(
-                        'CGPA 4.37/5.00'),
-                ], style={'textAlign': 'left'})
-            ], width='8')
-        ], justify='center'),
-
-    ]),
-    html.Br(),
-
-    # Certifications
-    html.Hr(),
-    dcc.Markdown('### Certifications', style={'textAlign': 'center'}),
-    html.Hr(),
-    #Certification 1
-    dbc.Row([
-        dbc.Col([
-            dcc.Markdown('2023',
-                         style={'textAlign': 'center'})
-        ], width=2),
-        dbc.Col([
-            dcc.Markdown('###### Business Intelligence & Data Analyst (BIDA)\n',
-                         #'San Francisco State University - San Francisco, CA',
-                         style={'white-space': 'pre'},
-                         className='ms-3'),
-        ], width=5),
-        dbc.Col([
-            dcc.Markdown('Corporate Finance Institute (CFI)',
-                         style={'white-space': 'pre'},
-                         className='ms-3'),
-        ], width=3)
-    ], justify='center'),
-
-    # Certification 2
-    dbc.Row([
-        dbc.Col([
-            dcc.Markdown('2022',
-                         style={'textAlign': 'center'})
-        ], width=2),
-        dbc.Col([
-            dcc.Markdown('###### Financial Modeling & Valuation Analyst (FMVA)\n',
-                         # 'San Francisco State University - San Francisco, CA',
-                         style={'white-space': 'pre'},
-                         className='ms-3'),
-        ], width=5),
-        dbc.Col([
-            dcc.Markdown('Corporate Finance Institute (CFI)',
-                         style={'white-space': 'pre'},
-                         className='ms-3'),
-        ], width=3)
-    ], justify='center'),
-
-    # Certification 3
-    dbc.Row([
-        dbc.Col([
-            dcc.Markdown('2022',
-                         style={'textAlign': 'center'})
-        ], width=2),
-        dbc.Col([
-            dcc.Markdown('###### Machine Learning for Finance (2022)\n',
-                         # 'San Francisco State University - San Francisco, CA',
-                         style={'white-space': 'pre'},
-                         className='ms-3'),
-        ], width=5),
-        dbc.Col([
-            dcc.Markdown('Udemy',
-                         style={'white-space': 'pre'},
-                         className='ms-3'),
-        ], width=3)
-    ], justify='center'),
-
-    # Certification 4
-    dbc.Row([
-        dbc.Col([
-            dcc.Markdown('2022',
-                         style={'textAlign': 'center'})
-        ], width=2),
-        dbc.Col([
-            dcc.Markdown('###### AWS Machine Learning Foundation\n',
-                         # 'San Francisco State University - San Francisco, CA',
-                         style={'white-space': 'pre'},
-                         className='ms-3'),
-        ], width=5),
-        dbc.Col([
-            dcc.Markdown('Udacity',
-                         style={'white-space': 'pre'},
-                         className='ms-3'),
-        ], width=3)
-    ], justify='center'),
-
-    # Interests
-    html.Hr(),
-    dcc.Markdown('### Interests', style={'textAlign': 'center'}),
-    html.Hr(),
-    dbc.Row([
-        interests_buttons,
-    ], justify='center', className='pt-3'),
-
-    # Community
-    html.Hr(),
-    dcc.Markdown('### Community', style={'textAlign': 'center'}),
-    html.Hr(),
-    dbc.Row([
-        dcc.Markdown('###### [TheRoom](https://www.theroom.com/) - Member',
-                     style={'white-space': 'pre'},
-                     className='ms-3'),
-    ], justify='center', className='pt-3'),
-
-])

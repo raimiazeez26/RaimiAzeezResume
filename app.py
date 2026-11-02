@@ -32,6 +32,8 @@ navigation = dbc.Nav(
         dbc.NavLink(page["name"], href=page["path"], active="exact")
         for page in dash.page_registry.values()
         if not page["path"].startswith("/app")
+        and not page["path"].startswith("/n8n-")
+        and not page["path"].startswith("/project/")
     ],
     navbar=True,
     className="ms-auto",

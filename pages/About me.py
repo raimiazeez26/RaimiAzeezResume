@@ -8,7 +8,12 @@ green_text = {'color':'green'}
 #image card
 picture_card = dbc.Card(
     [
-        dbc.CardImg(src="assets/portrait.jpeg", top=True),
+        dbc.CardImg(
+            src=dash.get_asset_url("Raimi Portrait.jpg"),
+            top=True,
+            alt="Portrait of Raimi Azeez Babatunde",
+            style={"objectFit": "cover", "objectPosition": "center 28%"},
+        ),
         #dbc.CardBody(
             #html.P("This card has an image at the top", className="card-text")
         #),
