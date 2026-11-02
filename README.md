@@ -32,27 +32,17 @@ The repository also contains older or alternative modules under `sides/` and non
 
 ## n8n Client Onboarding form
 
-The `/n8n-client-onboarding` page mirrors the main form in the
-[n8n Client Onboarding workflow repository](https://github.com/raimiazeez26/n8n-client-onboarding).
-It sends submissions to the main workflow's Form Trigger URL from the Dash
-server. The follow-up workflow is schedule-triggered and does not need a second
-external intake form.
+The `/n8n-client-onboarding` page embeds the main workflow's hosted Form Trigger
+from the [n8n Client Onboarding workflow repository](https://github.com/raimiazeez26/n8n-client-onboarding).
+The follow-up workflow is schedule-triggered and does not need a separate form.
+The embedded form contains the required client name, email, company, service,
+project description, and demo-data acknowledgment fields, with optional phone,
+company size, industry, start date, budget, and contact preference.
 
-Required fields are full name, email address, company name, at least one service,
-a project description, and confirmation that only fictional demo data is being
-submitted. Company size, industry, phone, start date, estimated budget, and
-communication channel are optional.
-
-Configure `N8N_CLIENT_ONBOARDING_WEBHOOK_URL` in the app server environment
-using the active Production URL shown by the n8n Form Trigger. For local
-development, copy `.env.example` to `.env` and set the value there. The app
-loads `.env` on startup. Keep the URL private and never place it in source code
-or browser JavaScript.
-Without this setting, the form displays a configuration message and does not
-send any data.
-
-The form limits input lengths and submission time, but does not provide CAPTCHA,
-rate limiting, or spam filtering. Add those controls before public production use.
+Set `N8N_CLIENT_ONBOARDING_FORM_URL` to the active Production URL shown by the
+n8n Form Trigger. For local development, copy `.env.example` to `.env` and
+set the URL there. The app loads `.env` on startup. The URL must use HTTPS.
+Without this setting, the page displays a configuration message.
 
 ## Repository layout
 
