@@ -37,7 +37,7 @@ header = dbc.Navbar(
     dbc.Container(
         [
             dbc.NavbarBrand("Raimi Azeez Babatunde", href="/"),
-            dbc.NavbarToggler(id="navbar-toggler", aria_label="Toggle navigation"),
+            dbc.NavbarToggler(id="navbar-toggler", title="Toggle navigation"),
             dbc.Collapse(
                 navigation,
                 id="navbar-collapse",
