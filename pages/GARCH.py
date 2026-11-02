@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import statsmodels.api as sm
 from arch import arch_model
 from scipy import stats
-from .def_symbols_tv import TIMEFRAME_DICT
+from .market_data import get_market_data
 
 def fig_to_uri(in_fig, close_all=True, **save_args):
     # type: (plt.Figure) -> str
@@ -28,9 +28,8 @@ def fig_to_uri(in_fig, close_all=True, **save_args):
     return "data:image/png;base64,{}".format(encoded)
 
 def get_data(symbol, timeframe):
-    df = pd.read_csv('forex_data.csv', index_col = [0])
-    df = df.loc[(df['Symbol'] == symbol) & (df['TimeFrame'] == timeframe)]
-    return df
+    """Fetch normalized historical candles for GARCH analysis."""
+    return get_market_data(symbol, timeframe)
 
 def chart_data(symbol, timeframe, split=100, log = True, diff = True):
 

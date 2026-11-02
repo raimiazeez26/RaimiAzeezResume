@@ -1,5 +1,7 @@
 #import libs
 
+from pathlib import Path
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -18,8 +20,9 @@ import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
+ASSETS_DIR = Path(__file__).resolve().parents[1] / "assets"
 def process_customer():
-    data = pd.read_csv("assets/customers.csv")
+    data = pd.read_csv(ASSETS_DIR / "customers.csv")
     del(data["CustomerID"])
     cons = data.iloc[:,1:]
 
@@ -41,7 +44,7 @@ def process_customer():
 
 def build_model(cons_data, optimal_k, pca = False):
     
-    data = pd.read_csv("assets/customers.csv")
+    data = pd.read_csv(ASSETS_DIR / "customers.csv")
     
     if pca:
         pca = PCA(n_components = len(cons_data.columns))
@@ -192,7 +195,7 @@ def build_model(cons_data, optimal_k, pca = False):
 #==========================================================================================
 
 def process_credit():
-    data = pd.read_csv("assets/CC_GENERAL.csv")
+    data = pd.read_csv(ASSETS_DIR / "CC_GENERAL.csv")
     del(data["CUST_ID"])
 
     #Standardize Data
@@ -206,7 +209,7 @@ def process_credit():
 
 def build_credit_model(cons_data, optimal_k, pca = False):
     
-    org_data = pd.read_csv("assets/CC_GENERAL.csv")
+    org_data = pd.read_csv(ASSETS_DIR / "CC_GENERAL.csv")
     org_data = org_data.dropna()
     
     if pca:

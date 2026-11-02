@@ -1,4 +1,5 @@
 import dash
+from pathlib import Path
 from dash import Dash, html, dcc, dash_table, callback
 import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output, State
@@ -213,7 +214,8 @@ def oustanding_orders(df):
     return outst
 
 
-data = pd.read_csv('assets/northwind.csv', index_col=[0])
+ASSETS_DIR = Path(__file__).resolve().parents[1] / "assets"
+data = pd.read_csv(ASSETS_DIR / "northwind.csv", index_col=[0])
 
 # -------------------------------------------------------------------
 # PRESET STYLES AND INDICATORS
@@ -431,14 +433,14 @@ def data_store(value):
     # hypothetical enormous dataset with millions of rows
 
     if value == None:
-        data = pd.read_csv('assets/northwind.csv', index_col=[0])
+        data = pd.read_csv(ASSETS_DIR / "northwind.csv", index_col=[0])
         prev_data = pd.DataFrame()
         # print(f'data not selected {data}')
     else:
-        data = pd.read_csv('assets/northwind.csv', index_col=[0])
+        data = pd.read_csv(ASSETS_DIR / "northwind.csv", index_col=[0])
         data = data[data.OrderYear.isin([value])]
 
-        prev_data = pd.read_csv('assets/northwind.csv', index_col=[0])
+        prev_data = pd.read_csv(ASSETS_DIR / "northwind.csv", index_col=[0])
         prev_data = prev_data[prev_data.OrderYear.isin([value - 1])]
         # print(f'data selected {data}')
 

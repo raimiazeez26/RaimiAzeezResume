@@ -12,12 +12,11 @@ plt.rcParams["figure.figsize"] = (10, 6)  # Figure size and width
 from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
 from statsmodels.tsa.arima.model import ARIMA
 from pmdarima import auto_arima
-from .def_symbols_tv import TIMEFRAME_DICT
+from .market_data import get_market_data
 
 def get_data(symbol, timeframe):
-    df = pd.read_csv('forex_data.csv', index_col = [0])
-    df = df.loc[(df['Symbol'] == symbol) & (df['TimeFrame'] == timeframe)]
-    return df
+    """Fetch normalized historical candles for ARIMA analysis."""
+    return get_market_data(symbol, timeframe)
 
 def chart_data(symbol, timeframe, split=100, log = False, diff = False):
 
