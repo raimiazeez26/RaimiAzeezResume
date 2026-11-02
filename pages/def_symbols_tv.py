@@ -1,8 +1,6 @@
 from tvDatafeed import TvDatafeed, Interval
 
-# username = 'contactus@xaviermcallister.com'
-# password = 'xaviermcallister2019!!'
-# tv = TvDatafeed(username=username, password=password)
+# The client uses anonymous access; keep credentials out of source control.
 
 def get_symbol_names():
     symbol_names = ["EURUSD", "AUDUSD", "USDCAD", "USDCHF", "AUDCAD", "CADCHF", "NZDUSD", "EURCAD", "AUDCHF", "GBPUSD",
