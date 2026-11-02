@@ -32,17 +32,24 @@ The repository also contains older or alternative modules under `sides/` and non
 
 ## n8n Client Onboarding form
 
-The `/n8n-client-onboarding` page embeds the main workflow's hosted Form Trigger
-from the [n8n Client Onboarding workflow repository](https://github.com/raimiazeez26/n8n-client-onboarding).
-The follow-up workflow is schedule-triggered and does not need a separate form.
-The embedded form contains the required client name, email, company, service,
-project description, and demo-data acknowledgment fields, with optional phone,
-company size, industry, start date, budget, and contact preference.
+The app provides launcher pages for every externally submitted form-triggered
+workflow found in the [n8n Client Onboarding workflow repository](https://github.com/raimiazeez26/n8n-client-onboarding):
 
-Set `N8N_CLIENT_ONBOARDING_FORM_URL` to the active Production URL shown by the
-n8n Form Trigger. For local development, copy `.env.example` to `.env` and
-set the URL there. The app loads `.env` on startup. The URL must use HTTPS.
-Without this setting, the page displays a configuration message.
+- `/n8n-client-onboarding` — new client intake
+- `/n8n-job-application` — record a new opportunity or application
+- `/n8n-job-match` — request AI job and CV matching for an application ID
+- `/n8n-application-status` — update an application's status
+
+Each launcher opens the corresponding native n8n Form Trigger page. The client
+onboarding follow-up and job application follow-up workflows use schedules and
+do not need external form launchers.
+
+Set `N8N_CLIENT_ONBOARDING_FORM_URL`, `N8N_JOB_APPLICATION_FORM_URL`,
+`N8N_AI_MATCH_FORM_URL`, and `N8N_APPLICATION_STATUS_FORM_URL` to the active
+Production URLs shown by their respective n8n Form Trigger nodes. For local
+development, copy `.env.example` to `.env` and set each URL there. The app
+loads `.env` on startup and accepts HTTPS URLs only. Unconfigured pages display
+a setup message.
 
 ## Repository layout
 
@@ -51,6 +58,7 @@ Without this setting, the page displays a configuration message.
 ├── app.py                  # Dash app entry point and responsive navigation
 ├── Procfile                # Gunicorn deployment command
 ├── requirements.txt        # Python runtime dependencies
+├── .env.example            # Local n8n form URL settings (no live URLs)
 ├── assets/                 # Sample datasets and images
 ├── pages/                  # Dash pages and analysis helpers
 └── sides/                  # Legacy/alternative dashboard modules

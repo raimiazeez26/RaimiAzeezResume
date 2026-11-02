@@ -15,7 +15,7 @@ def sidebar():
                     active="exact",
                 )
             )
-        elif page["path"] in {"/projects", "/n8n-client-onboarding"}:
+        elif page["path"] == "/projects" or page["path"].startswith("/n8n-"):
             nav_links.append(
                 dbc.NavLink(
                     [

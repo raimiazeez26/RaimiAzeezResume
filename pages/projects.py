@@ -36,6 +36,9 @@ def layout():
             "n8n, Python, Google Sheets, Google Drive, Gmail, Dash",
             [
                 ("Open onboarding form", "/n8n-client-onboarding"),
+                ("Job application", "/n8n-job-application"),
+                ("AI job match", "/n8n-job-match"),
+                ("Update application status", "/n8n-application-status"),
                 ("Workflow source", "https://github.com/raimiazeez26/n8n-client-onboarding"),
             ],
         ),
@@ -107,7 +110,7 @@ def layout():
                         html.H3("Interactive demos in this app", className="mb-3"),
                         dbc.ListGroup(
                             [
-                                dbc.ListGroupItem(label, href=href, action=True)
+                            dbc.ListGroupItem(label, href=href, action=True)
                                 for label, href in demo_pages
                             ],
                             className="mb-4",
