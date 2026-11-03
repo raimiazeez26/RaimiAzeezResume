@@ -112,35 +112,6 @@ layout = dbc.Container(
             className="mb-4 shadow-sm",
         ),
         section(
-            "Core Skills",
-            dbc.Row(
-                [
-                    dbc.Col(
-                        [
-                            html.H3("Data Science", className="h6"),
-                            html.P("Python, machine learning, NLP, statistical analysis, time-series analysis, web scraping"),
-                        ],
-                        md=4,
-                    ),
-                    dbc.Col(
-                        [
-                            html.H3("Analytics & Engineering", className="h6"),
-                            html.P("SQL, data exploration, API integration, data visualization, Power BI, Excel, Tableau"),
-                        ],
-                        md=4,
-                    ),
-                    dbc.Col(
-                        [
-                            html.H3("Finance & Leadership", className="h6"),
-                            html.P("Financial modeling, trading research, business strategy, project coordination, stakeholder communication"),
-                        ],
-                        md=4,
-                    ),
-                ],
-                className="g-3",
-            ),
-        ),
-        section(
             "Professional Experience",
             [
                 experience(
@@ -189,6 +160,63 @@ layout = dbc.Container(
             ],
         ),
         section(
+            "Education",
+            [
+                dbc.Row(
+                    [
+                        dbc.Col(html.Strong("WorldQuant University"), md=4),
+                        dbc.Col("MSc, Financial Engineering", md=5),
+                        dbc.Col("January 2023 – Present", md=3, className="text-md-end text-muted"),
+                    ],
+                    className="mb-2",
+                ),
+                dbc.Row(
+                    [
+                        dbc.Col(html.Strong("Ustacky"), md=4),
+                        dbc.Col("Data Science MicroDegree", md=5),
+                        dbc.Col("March 2021 – June 2021", md=3, className="text-md-end text-muted"),
+                    ],
+                    className="mb-2",
+                ),
+                dbc.Row(
+                    [
+                        dbc.Col(html.Strong("Lagos State University"), md=4),
+                        dbc.Col("BSc, Fisheries | CGPA 4.37/5.00", md=5),
+                        dbc.Col("2011 – 2016", md=3, className="text-md-end text-muted"),
+                    ]
+                ),
+            ],
+        ),
+        section(
+            "Core Skills",
+            dbc.Row(
+                [
+                    dbc.Col(
+                        [
+                            html.H3("Data Science", className="h6"),
+                            html.P("Python, machine learning, NLP, statistical analysis, time-series analysis, web scraping"),
+                        ],
+                        md=4,
+                    ),
+                    dbc.Col(
+                        [
+                            html.H3("Analytics & Engineering", className="h6"),
+                            html.P("SQL, data exploration, API integration, data visualization, Power BI, Excel, Tableau"),
+                        ],
+                        md=4,
+                    ),
+                    dbc.Col(
+                        [
+                            html.H3("Finance & Leadership", className="h6"),
+                            html.P("Financial modeling, trading research, business strategy, project coordination, stakeholder communication"),
+                        ],
+                        md=4,
+                    ),
+                ],
+                className="g-3",
+            ),
+        ),
+        section(
             "Selected Projects",
             dbc.Row(
                 [
@@ -219,34 +247,6 @@ layout = dbc.Container(
                 ],
                 className="g-3",
             ),
-        ),
-        section(
-            "Education",
-            [
-                dbc.Row(
-                    [
-                        dbc.Col(html.Strong("WorldQuant University"), md=4),
-                        dbc.Col("MSc, Financial Engineering", md=5),
-                        dbc.Col("January 2023 – Present", md=3, className="text-md-end text-muted"),
-                    ],
-                    className="mb-2",
-                ),
-                dbc.Row(
-                    [
-                        dbc.Col(html.Strong("Ustacky"), md=4),
-                        dbc.Col("Data Science MicroDegree", md=5),
-                        dbc.Col("March 2021 – June 2021", md=3, className="text-md-end text-muted"),
-                    ],
-                    className="mb-2",
-                ),
-                dbc.Row(
-                    [
-                        dbc.Col(html.Strong("Lagos State University"), md=4),
-                        dbc.Col("BSc, Fisheries | CGPA 4.37/5.00", md=5),
-                        dbc.Col("2011 – 2016", md=3, className="text-md-end text-muted"),
-                    ]
-                ),
-            ],
         ),
         section(
             "Professional Certifications",

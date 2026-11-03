@@ -106,13 +106,51 @@ For a production-style local launch, install the requirements and run `gunicorn 
 
 ## Deployment
 
-The included `Procfile` starts the WSGI server with:
+The repository is configured for Heroku's Python buildpack. The root-level
+`.python-version` selects Python 3.14, `requirements.txt` installs the app's
+dependencies, and the `web` process in `Procfile` starts the Dash WSGI server:
 
 ```text
 gunicorn app:server --timeout 600
 ```
 
-Configure the hosting service to install `requirements.txt`, use the repository root as the working directory, and set `N8N_CLIENT_ONBOARDING_WEBHOOK_URL` as a server-side config variable. Keep this value private. The supported Python runtime is recorded in `.python-version`.
+Deploy from the repository root and keep the app's configuration in Heroku
+Config Vars. The form pages read these variables at runtime:
+
+- `N8N_CLIENT_ONBOARDING_FORM_URL`
+- `N8N_JOB_APPLICATION_FORM_URL`
+- `N8N_AI_MATCH_FORM_URL`
+- `N8N_APPLICATION_STATUS_FORM_URL`
+
+Set each one to the active HTTPS Production URL from its n8n Form Trigger.
+For example, using the Heroku CLI (replace each example URL with the matching
+production URL):
+
+```sh
+heroku config:set N8N_CLIENT_ONBOARDING_FORM_URL="https://your-n8n-host/form/client-form-id" N8N_JOB_APPLICATION_FORM_URL="https://your-n8n-host/form/job-form-id" N8N_AI_MATCH_FORM_URL="https://your-n8n-host/form/match-form-id" N8N_APPLICATION_STATUS_FORM_URL="https://your-n8n-host/form/status-form-id"
+```
+
+Keep production URLs and credentials out of Git. Missing or invalid form URLs do
+not prevent the app from starting; the relevant launcher page displays a setup
+message instead.
+
+After connecting the Heroku Git remote and setting Config Vars, deploy the
+branch you intend to release, then check startup logs:
+
+```sh
+git push heroku main
+heroku logs --tail
+```
+
+Heroku's router ends a synchronous web request after 30 seconds. The Gunicorn
+worker timeout above does not extend that router limit, so live market scans or
+backtests that take longer may return a timeout. See [Heroku's request timeout
+guidance](https://devcenter.heroku.com/articles/request-timeout).
+
+The Python 3.14 runtime in `.python-version` is supported by the [Heroku Python
+buildpack](https://devcenter.heroku.com/articles/python-support). Heroku's
+buildpack installs the dependencies from `requirements.txt` and uses the
+`web` command from `Procfile`.
 
 ## Maintenance notes
 
