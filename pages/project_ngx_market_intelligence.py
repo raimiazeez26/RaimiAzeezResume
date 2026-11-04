@@ -18,7 +18,7 @@ layout = lambda: render_project(
     repository="https://github.com/raimiazeez26/NGX-Market-Inteligence",
     status="Active development scaffold; the repository says the forecasting page is hidden and the predictive model remains pending.",
     notes=[
-        "The repository is private, so the source link requires the owner's GitHub access.",
         "Production deployment depends on external market-data availability and a persistent database configuration.",
     ],
+    private=True,
 )

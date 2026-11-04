@@ -33,6 +33,8 @@ def sidebar():
                 ("RAIMI-ANALYST", "/app-tagpt"),
                 ("Content Forge", "/project/content-forge"),
                 ("AI Research Workflow", "/project/ai-financial-analyst"),
+                ("Boardroom AI v2", "/project/boardroom-ai"),
+                ("RAI Automations", "/project/rai-automations"),
             ],
         ),
         (
@@ -47,6 +49,9 @@ def sidebar():
                 ("Amortization Schedule", "/app-amortization"),
                 ("Backtest Dashboard", "/app-backtest"),
                 ("NGX Market Intelligence", "/project/ngx-market-intelligence"),
+                ("NGX Short-Horizon Alpha", "/project/ngx-short-horizon-alpha"),
+                ("ScalpAgent", "/project/scalpagent"),
+                ("EMA + VWAP Trading System", "/project/ema-vwap-trading-system"),
             ],
         ),
     ]
