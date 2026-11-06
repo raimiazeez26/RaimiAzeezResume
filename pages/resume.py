@@ -9,11 +9,10 @@ dash.register_page(__name__, order=3, name="Resume")
 
 
 def section(title, children):
+    # Dash drops nested lists, so flatten list children into the section.
+    body = children if isinstance(children, list) else [children]
     return html.Section(
-        [
-            html.H2(title, className="h4 border-bottom pb-2 mb-3"),
-            children,
-        ],
+        [html.H2(title, className="h4 border-bottom pb-2 mb-3"), *body],
         className="mb-4",
     )
 
@@ -85,11 +84,13 @@ layout = dbc.Container(
                         dbc.Col(
                             [
                                 html.H1("Raimi Azeez Babatunde", className="display-6 fw-bold"),
-                                html.P("Data Scientist | Financial Engineering | Analytics", className="lead"),
+                                html.P("Data Scientist | Quantitative Developer | Financial Engineering", className="lead"),
                                 html.P(
-                                    "Data scientist and financial analytics professional working across machine learning, "
-                                    "time-series analysis, trading research, and business intelligence. Experienced in "
-                                    "turning data into models, dashboards, and workflow tools that support practical decisions."
+                                    "Data scientist and quantitative developer with an MSc in Financial Engineering, applying "
+                                    "machine learning, statistical analysis, and NLP to business and financial problems. "
+                                    "Experienced building systematic trading systems, backtesting frameworks, and production ML "
+                                    "models across freelance, startup, and institutional environments, and translating analysis "
+                                    "into measurable gains in efficiency, revenue, and portfolio performance."
                                 ),
                                 dbc.Row(
                                     [
@@ -115,15 +116,45 @@ layout = dbc.Container(
             "Professional Experience",
             [
                 experience(
-                    "Xavier McAllister Capital",
-                    "Data Scientist",
-                    "December 2021 – Present",
+                    "Aquion",
+                    "Co-Founder and Head of Trading Systems",
+                    "January 2026 – Present",
                     "Lagos, Nigeria",
                     [
-                        "Developed and deployed an LLM-powered chatbot; reported outcomes included 30% higher customer engagement and 20% higher profit.",
-                        "Coordinated analytics projects and aligned delivery with business objectives, contributing to a reported 20% increase in operational efficiency.",
-                        "Analyzed historical and technical-indicator data in Python to identify trading opportunities and support portfolio decisions.",
-                        "Partnered with cross-functional teams to turn customer and market data into insights for business planning.",
+                        "Architect and build automated strategy execution systems for crypto and FX markets, turning indicator-based, ML, and correlation/basket signals into production-ready workflows.",
+                        "Design and implement backtesting and optimization frameworks to evaluate and refine algorithmic trading models across asset classes and strategy types.",
+                    ],
+                ),
+                experience(
+                    "Lagos State Internal Revenue Service",
+                    "Senior Revenue Supervisor",
+                    "July 2024 – Present",
+                    "Lagos, Nigeria",
+                    [
+                        "Manage accurate and timely tax remittance for 40+ companies, ensuring adherence to regional tax regulations and financial transparency.",
+                        "Collate and analyze tax collection reports from 7 tax stations in the region, synthesizing key data into insights reported directly to the director's office.",
+                    ],
+                ),
+                experience(
+                    "Upwork",
+                    "Data Scientist and Quantitative Developer (Freelance)",
+                    "December 2023 – Present",
+                    "Remote",
+                    [
+                        "Deliver freelance engagements in quantitative finance, data science, machine learning, and AI for clients across industries.",
+                        "Maintain Top Rated Freelancer status, reflecting consistently high client satisfaction and quality of work.",
+                    ],
+                ),
+                experience(
+                    "Xavier McAllister Capital",
+                    "Data Scientist",
+                    "December 2021 – November 2023",
+                    "Lagos, Nigeria",
+                    [
+                        "Developed and deployed a customer-facing LLM chatbot, boosting customer engagement by 30% and profit by 20%.",
+                        "Analyzed historical trade results and market data in Python to identify correlation patterns across strategy types and optimal trading windows, contributing to a 20% improvement in portfolio returns.",
+                        "Coordinated data analytics projects, aligning objectives with business goals and achieving a 20% increase in overall efficiency.",
+                        "Collaborated cross-functionally to analyze large datasets, uncovering market trends that led to a 20% increase in market share.",
                     ],
                 ),
                 experience(
@@ -132,19 +163,21 @@ layout = dbc.Container(
                     "September 2021 – December 2021",
                     "Lagos, Nigeria",
                     [
-                        "Supported daily trading and portfolio analysis, contributing to investment reporting and decision-making.",
-                        "Assisted with risk-assessment algorithms and data workflows to improve risk monitoring.",
-                        "Collected, cleaned, and analyzed data from user interactions and financial transactions; prepared monthly trade activity reports.",
+                        "Executed daily trades, contributing to a 10% increase in investment returns.",
+                        "Developed risk assessment algorithms that reduced potential losses by 18%.",
+                        "Processed extensive datasets, streamlining project timelines by 15%.",
+                        "Produced and presented monthly trade reports, improving team transparency and stakeholder communication.",
                     ],
                 ),
                 experience(
                     "Hamoye",
                     "Data Science Intern",
-                    "September 2021 – November 2021",
+                    "March 2021 – July 2021",
                     "Remote",
                     [
-                        "Built machine-learning models for image recognition and time-series prediction exercises.",
-                        "Performed exploratory analysis and visualization and collaborated on applied data-science case studies.",
+                        "Built machine learning models for image recognition and time-series prediction.",
+                        "Identified machine learning solutions to real-world problems through structured case study analysis.",
+                        "Conducted exploratory data analysis and visualization to support model preparation and feature engineering.",
                     ],
                 ),
                 experience(
@@ -165,8 +198,17 @@ layout = dbc.Container(
                 dbc.Row(
                     [
                         dbc.Col(html.Strong("WorldQuant University"), md=4),
-                        dbc.Col("MSc, Financial Engineering", md=5),
-                        dbc.Col("January 2023 – Present", md=3, className="text-md-end text-muted"),
+                        dbc.Col(
+                            [
+                                "MSc, Financial Engineering",
+                                html.Div(
+                                    "Coursework: Quantitative Finance, Portfolio and Risk Management, Machine Learning and AI, Algorithmic Trading Strategies",
+                                    className="small text-muted",
+                                ),
+                            ],
+                            md=5,
+                        ),
+                        dbc.Col("January 2023 – December 2024", md=3, className="text-md-end text-muted"),
                     ],
                     className="mb-2",
                 ),
@@ -180,9 +222,9 @@ layout = dbc.Container(
                 ),
                 dbc.Row(
                     [
-                        dbc.Col(html.Strong("Lagos State University"), md=4),
+                        dbc.Col(html.Strong("Lagos State University, Ojo"), md=4),
                         dbc.Col("BSc, Fisheries | CGPA 4.37/5.00", md=5),
-                        dbc.Col("2011 – 2016", md=3, className="text-md-end text-muted"),
+                        dbc.Col("2011 – January 2016", md=3, className="text-md-end text-muted"),
                     ]
                 ),
             ],
@@ -193,22 +235,22 @@ layout = dbc.Container(
                 [
                     dbc.Col(
                         [
-                            html.H3("Data Science", className="h6"),
-                            html.P("Python, machine learning, NLP, statistical analysis, time-series analysis, web scraping"),
+                            html.H3("Quantitative & Data Science", className="h6"),
+                            html.P("Python, machine learning, NLP, statistical analysis, time-series analysis, algorithmic trading, backtesting and strategy optimization, web scraping"),
                         ],
                         md=4,
                     ),
                     dbc.Col(
                         [
                             html.H3("Analytics & Engineering", className="h6"),
-                            html.P("SQL, data exploration, API integration, data visualization, Power BI, Excel, Tableau"),
+                            html.P("SQL and DBMS, data exploration, API integration, data visualization, Tableau, Power BI, Excel, AWS, Azure Data Studio"),
                         ],
                         md=4,
                     ),
                     dbc.Col(
                         [
                             html.H3("Finance & Leadership", className="h6"),
-                            html.P("Financial modeling, trading research, business strategy, project coordination, stakeholder communication"),
+                            html.P("Quantitative finance, financial modeling, risk assessment, investment analysis, valuation, business strategy, strategic planning, cross-functional collaboration"),
                         ],
                         md=4,
                     ),
@@ -230,7 +272,7 @@ layout = dbc.Container(
                         "Job Application Tracker Automation",
                         "n8n workflows for recording applications, requesting job-to-CV matching, and updating application status.",
                         "n8n, AI matching, Google Sheets",
-                        "https://github.com/raimiazeez26/n8n-client-onboarding",
+                        "https://github.com/raimiazeez26/n8n-job-application-tracker",
                     ),
                     project(
                         "Interactive Resume & Analytics",

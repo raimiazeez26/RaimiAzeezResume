@@ -17,5 +17,6 @@ layout = lambda: render_project(
     technologies="React, TypeScript, Vite, Supabase, Recharts, Tailwind CSS, shadcn/ui",
     repository="https://github.com/raimiazeez26/BudgetMe",
     status="Frontend application source is available; a working deployment requires valid Supabase project configuration and database setup.",
-    notes=["The repository is private, so the source link requires the owner's GitHub access.", "Supabase credentials belong in local environment configuration and should not be committed to the portfolio repository."],
+    notes=["Supabase credentials belong in local environment configuration and should not be committed to the portfolio repository."],
+    private=True,
 )

@@ -65,6 +65,7 @@ PROJECTS = [
         "kind": "Quant & Financial Engineering",
         "page": "/project/ngx-market-intelligence",
         "repository": "https://github.com/raimiazeez26/NGX-Market-Inteligence",
+        "private": True,
     },
     {
         "title": "BudgetMe",
@@ -73,6 +74,58 @@ PROJECTS = [
         "kind": "Data Science & Analytics",
         "page": "/project/budgetme",
         "repository": "https://github.com/raimiazeez26/BudgetMe",
+        "private": True,
+    },
+    {
+        "title": "Boardroom AI v2",
+        "description": "An evidence-grounded AI assistant that answers questions from approved company documents, verifies each claim against retrieved sources, and escalates uncertain requests for human review.",
+        "technology": "n8n, PostgreSQL, pgvector, Google Drive, LLMs, Telegram",
+        "kind": "AI & Automation",
+        "page": "/project/boardroom-ai",
+        "repository": "https://github.com/raimiazeez26/boardroom-ai-v2",
+    },
+    {
+        "title": "RAI Automations",
+        "description": "An AI revenue engine for an automation agency: prospect discovery, cited research, owner-approved outreach drafts, and a sales workspace on a PostgreSQL and pgvector memory layer.",
+        "technology": "Node.js, PostgreSQL, pgvector, n8n, OpenAI, Google OAuth, Heroku",
+        "kind": "AI & Automation",
+        "page": "/project/rai-automations",
+        "repository": "https://github.com/raimiazeez26/RAI",
+        "private": True,
+    },
+    {
+        "title": "NGX Short-Horizon Alpha",
+        "description": "Reproducible research testing whether technical, point-in-time fundamental, and macro information improve cross-sectional stock selection on the Nigerian Exchange.",
+        "technology": "Python, scikit-learn, pandas, walk-forward validation, bootstrap inference",
+        "kind": "Quant & Financial Engineering",
+        "page": "/project/ngx-short-horizon-alpha",
+        "repository": "https://github.com/raimiazeez26/short_horizon_alpha_ngx",
+        "private": True,
+    },
+    {
+        "title": "ScalpAgent",
+        "description": "A short-horizon scalping runtime with a browser dashboard, multi-broker adapters, cost-aware risk controls, managed exits, deterministic replay, and parallel parameter optimization.",
+        "technology": "Python, FastAPI, SQLite, MT5, OANDA, Hyperliquid, JavaScript",
+        "kind": "Quant & Financial Engineering",
+        "page": "/project/scalpagent",
+        "repository": "https://github.com/raimiazeez26/ScalpAgent",
+        "private": True,
+    },
+    {
+        "title": "EMA Crossover + VWAP Trading System",
+        "description": "A multi-timeframe EMA and VWAP strategy with an MT5 backtesting and optimization pipeline and an OANDA live trading bot with Telegram alerts and end-of-day reporting.",
+        "technology": "Python, MetaTrader 5, OANDA v20, TA-Lib, Telegram, Dash",
+        "kind": "Quant & Financial Engineering",
+        "page": "/project/ema-vwap-trading-system",
+        "repository": "https://github.com/raimiazeez26/EMA_Crossover_VWAP_Strategy-v2",
+    },
+    {
+        "title": "Northwind Sales Dashboard",
+        "description": "A top-level KPI dashboard for the Maven Northwind Challenge covering revenue, orders, customers, employees, products, and order locations.",
+        "technology": "Python, Dash, Plotly, pandas",
+        "kind": "Data Science & Analytics",
+        "page": "/app-northwind",
+        "repository": "https://github.com/raimiazeez26/NorthWind-Dashboard",
     },
     {
         "title": "MT5pyTrader",
@@ -124,15 +177,24 @@ def project_card(project):
         actions.append(
             html.A("Project details", href=project["page"], className="btn btn-sm btn-outline-info me-2")
         )
-    actions.append(
-        html.A(
-            "Source code",
-            href=project["repository"],
-            target="_blank",
-            rel="noopener noreferrer",
-            className="btn btn-sm btn-outline-light",
+    if project.get("private"):
+        actions.append(
+            html.Span(
+                [html.I(className="fa-solid fa-lock me-1"), "Private repository"],
+                className="badge text-bg-secondary p-2",
+                title="Source available on request",
+            )
         )
-    )
+    else:
+        actions.append(
+            html.A(
+                "Source code",
+                href=project["repository"],
+                target="_blank",
+                rel="noopener noreferrer",
+                className="btn btn-sm btn-outline-light",
+            )
+        )
     return dbc.Card(
         dbc.CardBody(
             [

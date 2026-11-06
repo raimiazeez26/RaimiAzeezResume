@@ -6,7 +6,23 @@ from dash import html
 from .side_bar import sidebar
 
 
-def render_project(title, category, summary, features, technologies, repository, status, notes=None, local_copy=None):
+def source_action(repository, private=False, size="btn-sm"):
+    """Link to a public repository, or show a badge when the source is private."""
+    if private:
+        return html.Span(
+            [html.I(className="fa-solid fa-lock me-1"), "Private repository — source available on request"],
+            className="badge text-bg-secondary p-2",
+        )
+    return html.A(
+        "View source repository",
+        href=repository,
+        target="_blank",
+        rel="noopener noreferrer",
+        className=f"btn btn-outline-info {size}",
+    )
+
+
+def render_project(title, category, summary, features, technologies, repository, status, notes=None, local_copy=None, private=False):
     """Render a structured project overview with source and status context."""
     feature_list = [html.Li(item) for item in features]
     content = [
@@ -27,7 +43,7 @@ def render_project(title, category, summary, features, technologies, repository,
                                 html.H4("Project details"),
                                 html.P([html.Strong("Technology: "), technologies]),
                                 html.P([html.Strong("Status: "), status]),
-                                html.A("View source repository", href=repository, target="_blank", rel="noopener noreferrer", className="btn btn-outline-info btn-sm"),
+                                source_action(repository, private),
                             ]
                         ),
                         className="h-100",

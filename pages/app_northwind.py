@@ -328,6 +328,12 @@ def layout():
                                 html.H3('NORTHWIND TRADER ', className='text-center', style={"color": "#FFFFFF"}),
                                 html.H5('Sales & Performance Dashboard', className='text-center',
                                         style={"color": "#FFFFFF"}),
+                                html.Div(
+                                    html.A('View source repository',
+                                           href='https://github.com/raimiazeez26/NorthWind-Dashboard',
+                                           target='_blank', rel='noopener noreferrer',
+                                           className='btn btn-sm btn-outline-info'),
+                                    className='text-center'),
                             ],  # width=6
                                 xs=8, sm=8, md=8, lg=8, xl=8, className='p-1', align='center'),
 
