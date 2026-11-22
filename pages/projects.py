@@ -170,6 +170,90 @@ PROJECTS = [
 ]
 
 
+HIGHLIGHTS = [
+    {
+        "title": "TradingPlayground",
+        "tagline": "An evaluation environment for reinforcement-learning trading policies",
+        "description": "Replay a trained Stable-Baselines3 policy bar by bar on unseen market data, with no look-ahead. Every action passes an independent risk engine the model cannot bypass, and every decision is traced from observation to fill, so you can see what the policy actually learned.",
+        "points": [
+            "PPO, A2C, DQN, SAC, TD3 and RecurrentPPO policies from validated packages or Hugging Face Hub",
+            "Flags test windows that overlap training data; compares runs on like-for-like assumptions",
+            "Model inference isolated in a no-network, read-only worker; paper trading only",
+        ],
+        "technology": "Python, Stable-Baselines3, PyTorch, Gymnasium, FastAPI, PostgreSQL, React, Docker",
+        "kind": "Reinforcement Learning",
+        "page": "/project/trading-playground",
+        "repository": "https://github.com/raimiazeez26/TradingPlayground",
+        "demo": None,
+        "status": "Release 1 complete · deployment pending",
+    },
+    {
+        "title": "RA-StrategyLab",
+        "tagline": "Describe. Generate. Backtest.",
+        "description": "An AI-powered quantitative research platform that turns plain-English trading ideas into validated strategy code and reproducible backtests. AI interprets the idea; a deterministic engine computes every reported number.",
+        "points": [
+            "Sandboxed strategy code with a look-ahead audit and reproducible result hashes",
+            "Walk-forward validation, Bayesian optimisation, Monte Carlo and overfitting warnings",
+            "Multi-strategy portfolios, paper trading with backtest parity, opt-in live trading",
+        ],
+        "technology": "Python, FastAPI, Celery, PostgreSQL, Next.js, TypeScript, OpenAI, Docker",
+        "kind": "AI & Quantitative Research",
+        "page": "/project/ra-strategylab",
+        "repository": "https://github.com/raimiazeez26/RAStrategyLab",
+        "demo": "https://ra-strategylab-web-51e6204d9730.herokuapp.com/",
+        "status": "Live on Heroku",
+    },
+]
+
+
+def highlight_card(project):
+    """Build a featured project card with demo, details and private-repository links."""
+    actions = []
+    if project.get("demo"):
+        actions.append(
+            html.A(
+                [html.I(className="fa-solid fa-arrow-up-right-from-square me-1"), "Live demo"],
+                href=project["demo"],
+                target="_blank",
+                rel="noopener noreferrer",
+                className="btn btn-sm btn-info me-2 mb-2",
+            )
+        )
+    actions.append(
+        html.A("Project details", href=project["page"], className="btn btn-sm btn-outline-info me-2 mb-2")
+    )
+    actions.append(
+        html.A(
+            [html.I(className="fa-solid fa-lock me-1"), "Private repository"],
+            href=project["repository"],
+            target="_blank",
+            rel="noopener noreferrer",
+            title="Private repository: access available on request",
+            className="btn btn-sm btn-outline-light mb-2",
+        )
+    )
+    return dbc.Card(
+        dbc.CardBody(
+            [
+                html.Div(
+                    [
+                        html.Span(project["kind"], className="small text-info text-uppercase fw-bold me-2"),
+                        html.Span(project["status"], className="badge text-bg-dark border"),
+                    ],
+                    className="mb-2",
+                ),
+                html.H3(project["title"], className="card-title h4 mb-1"),
+                html.P(project["tagline"], className="fst-italic text-muted mb-2"),
+                html.P(project["description"], className="card-text"),
+                html.Ul([html.Li(point) for point in project["points"]], className="small"),
+                html.P([html.Strong("Tools: "), project["technology"]], className="small text-muted"),
+                html.Div(actions),
+            ]
+        ),
+        className="h-100 shadow border-info",
+    )
+
+
 def project_card(project):
     """Build a consistent project card with internal and external actions."""
     actions = []
@@ -233,6 +317,17 @@ def layout():
                             "Explore project overviews, interactive demonstrations, and source repositories, grouped by project type.",
                             className="mb-4",
                         ),
+                        html.H3(
+                            [html.I(className="fa-solid fa-star me-2 text-warning"), "Highlights"],
+                            className="h4 mb-3",
+                        ),
+                        dbc.Row(
+                            [
+                                dbc.Col(highlight_card(project), xs=12, lg=6, className="mb-4")
+                                for project in HIGHLIGHTS
+                            ]
+                        ),
+                        html.H3("All projects", className="h4 mb-3"),
                         dbc.Row(project_columns),
                         html.Hr(),
                         html.H3("Interactive demos in this app", className="mb-3"),

@@ -1,10 +1,9 @@
 import dash
-from dash import html, dcc
+from dash import html
 import dash_bootstrap_components as dbc
 
 dash.register_page(__name__, path='/', order=0)
 
-green_text = {'color':'green'}
 #image card
 picture_card = dbc.Card(
     [
@@ -14,60 +13,145 @@ picture_card = dbc.Card(
             alt="Portrait of Raimi Azeez Babatunde",
             style={"objectFit": "cover", "objectPosition": "center 28%"},
         ),
-        #dbc.CardBody(
-            #html.P("This card has an image at the top", className="card-text")
-        #),
     ],
-    #style={"width": "21rem"},
     className='border rounded-lg',
 )
 
+RESEARCH_INTERESTS = [
+    (
+        "Evaluating learned policies honestly",
+        "Out-of-sample testing, walk-forward validation and strict no-look-ahead replay, so a policy's "
+        "reported performance reflects what it would do on data it has never seen.",
+    ),
+    (
+        "Reward design and specification gaming",
+        "How the objectives we write down diverge from the behaviour we want, and how agents exploit "
+        "the gap between a reward signal and the real goal.",
+    ),
+    (
+        "Constraints, oversight and safe action",
+        "Agents that act through limits they cannot bypass, with every decision traced and auditable, "
+        "so humans can understand and correct what a policy does.",
+    ),
+    (
+        "Generalisation under distribution shift",
+        "Why policies that look strong in training fail when the environment changes, and how to detect "
+        "that before deployment rather than after.",
+    ),
+]
+
+EVIDENCE = [
+    (
+        "TradingPlayground",
+        "/project/trading-playground",
+        "A replay environment for Stable-Baselines3 policies (PPO, A2C, DQN, SAC, TD3, RecurrentPPO). "
+        "Models act bar by bar with no look-ahead, every action passes an independent risk engine, and "
+        "each decision is traced from observation to outcome.",
+    ),
+    (
+        "RA-StrategyLab",
+        "/project/ra-strategylab",
+        "A research platform where AI interprets ideas but a deterministic engine computes every number, "
+        "with look-ahead audits, walk-forward validation, Monte Carlo tests and overfitting warnings.",
+    ),
+    (
+        "NGX Short-Horizon Alpha",
+        "/project/ngx-short-horizon-alpha",
+        "Reproducible machine-learning research with point-in-time data, expanding walk-forward folds, "
+        "and block-bootstrap and Newey–West inference.",
+    ),
+    (
+        "WorldQuant University MSc capstone",
+        "https://github.com/raimiazeez26/WQU_Capstone",
+        "Co-authored study of a hybrid filter approach to FX signal prediction with an LSTM model.",
+    ),
+]
+
+
+def interest_card(title, text):
+    return dbc.Col(
+        dbc.Card(
+            dbc.CardBody([html.H3(title, className="h6 text-info"), html.P(text, className="small mb-0")]),
+            className="h-100",
+        ),
+        xs=12,
+        md=6,
+        className="mb-3",
+    )
+
+
+def evidence_item(title, href, text):
+    external = href.startswith("http")
+    return html.Li(
+        [
+            html.A(
+                title,
+                href=href,
+                target="_blank" if external else None,
+                rel="noopener noreferrer" if external else None,
+                className="fw-semibold",
+            ),
+            " — ",
+            text,
+        ],
+        className="mb-2",
+    )
+
+
 def layout():
     return dbc.Row([
-        # put image here
         dbc.Col([
             picture_card
-        ], xs=1, sm=2, md=2, lg=3, xl=3, xxl=3, #style={'align': 'center'},
-            className='pt-5'), #width={"size": 3} #float-right
+        ], xs=12, sm=4, md=3, lg=3, xl=3, xxl=3, className='pt-5 mb-3'),
 
         dbc.Col([
             html.H1('Raimi Azeez Babatunde', style={'textAlign': 'center'}, className='p4'),
+            html.P(
+                "Data Scientist · Quantitative Developer · Reinforcement Learning Research",
+                className="lead text-center",
+            ),
             html.Hr(),
-            #picture_card,
-            html.P("Hi, I'm glad you found me.\n \n"
-                 "Welcome to my world of data-driven wonders! I'm Azeez, your go-to wizard for turning raw data "
-                 "into game-changing insights. With a passion for Python, data analysis, visualization, "
-                 "and machine learning, I'm on a mission to unravel the untold stories hidden in data.",
-                 style={'textAlign': 'left'}),
+            html.P(
+                "I build and evaluate systems that learn to make decisions under uncertainty. I hold an MSc in "
+                "Financial Engineering from WorldQuant University, and for several years I have worked on "
+                "machine learning, time-series modelling and systematic trading, where a model's mistakes cost "
+                "real money and an optimistic backtest is easy to produce and hard to trust."
+            ),
+            html.P(
+                "That experience is why I am drawn to reinforcement learning research. Financial markets are a "
+                "demanding testbed for RL: rewards are noisy and delayed, the environment shifts underneath the "
+                "agent, and a policy can look excellent while exploiting quirks of its training data. I want to "
+                "work on the questions that sit underneath that problem in general: how to specify what an agent "
+                "should do, how to evaluate what it has actually learned, and how to keep its behaviour within "
+                "limits people can oversee."
+            ),
 
-            html.P("From crunching numbers to crafting visually stunning dashboards, I thrive on transforming "
-                 "complexity into clarity. My insatiable curiosity and love for problem-solving keep me at "
-                 "the forefront of cutting-edge technologies and trends",
-                   style={'textAlign': 'left'}),
+            html.H2("Research interests", className="h4 mt-4 mb-3"),
+            dbc.Row([interest_card(title, text) for title, text in RESEARCH_INTERESTS]),
 
-            html.P("When I'm not geeking out on data, you can find me exploring the fascinating realms of "
-                 "Finance, or in the field flexing my photography skills.\n"
-                 "Ready to embark on a data-driven adventure? Let's innovate together!",
-                   style={'textAlign': 'left'}),
+            html.H2("Related work", className="h4 mt-3 mb-3"),
+            html.Ul([evidence_item(*item) for item in EVIDENCE]),
 
-            html.P("With my diverse skill set, I am suitable and well-equipped to excel in a variety of roles:\n",
-                   style={'textAlign': 'left'}),
+            html.H2("What I'm looking for", className="h4 mt-4 mb-3"),
+            html.P(
+                "Research roles in reinforcement learning, particularly work on evaluation, reward "
+                "specification, and the reliability and safety of learning agents. I bring rigorous "
+                "experimental practice from quantitative finance, strong Python engineering, and a habit of "
+                "building the tooling needed to test an idea properly."
+            ),
+            html.P(
+                [
+                    "See my ",
+                    html.A("projects", href="/projects"),
+                    " and ",
+                    html.A("resume", href="/resume"),
+                    ", or reach me at ",
+                    html.A("LinkedIn", href="https://www.linkedin.com/in/raimi-azeez/", target="_blank", rel="noopener noreferrer"),
+                    " and ",
+                    html.A("GitHub", href="https://github.com/raimiazeez26", target="_blank", rel="noopener noreferrer"),
+                    ".",
+                ]
+            ),
+        ], xs=12, sm=8, md=8, lg=8, xl=8, xxl=8)
 
-            dcc.Markdown('''
-                * Data Scientist
-                * Quantitative Analyst (Quant)
-                * Financial Analyst (with Data Emphasis)
-                * Data Analyst
-                * Data Engineer
-                * Business Intelligence Analyst
-                * Machine Learning Engineer
-                * Natural Language Processing (NLP) Specialist
-                * Data Visualization Specialist
-                * Technical Lead / Manager
-                * Research Scientist (NLP)
-                * Business Strategy Analyst
-                * Data Operations Manager
-            ''', style={'textAlign': 'left'})
-        ], xs=6, sm=6, md=8, lg=8, xl=8, xxl=8, className='align-content-around flex-wrap') #width={'size':6}
-
-], justify='center', className='p-3')
+    ], justify='center', className='p-3')

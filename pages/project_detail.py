@@ -6,8 +6,20 @@ from dash import html
 from .side_bar import sidebar
 
 
-def source_action(repository, private=False, size="btn-sm"):
-    """Link to a public repository, or show a badge when the source is private."""
+def source_action(repository, private=False, size="btn-sm", private_link=False):
+    """Link to a public repository, or show a badge when the source is private.
+
+    With ``private_link`` a private repository is still linked, for reviewers who have been
+    granted access; everyone else sees GitHub's not-found page.
+    """
+    if private and private_link:
+        return html.A(
+            [html.I(className="fa-solid fa-lock me-1"), "Private repository (access on request)"],
+            href=repository,
+            target="_blank",
+            rel="noopener noreferrer",
+            className=f"btn btn-outline-light {size} mb-2",
+        )
     if private:
         return html.Span(
             [html.I(className="fa-solid fa-lock me-1"), "Private repository — source available on request"],
@@ -22,9 +34,21 @@ def source_action(repository, private=False, size="btn-sm"):
     )
 
 
-def render_project(title, category, summary, features, technologies, repository, status, notes=None, local_copy=None, private=False):
+def render_project(title, category, summary, features, technologies, repository, status, notes=None, local_copy=None, private=False, private_link=False, demo=None):
     """Render a structured project overview with source and status context."""
     feature_list = [html.Li(item) for item in features]
+    actions = [source_action(repository, private, private_link=private_link)]
+    if demo:
+        actions.insert(
+            0,
+            html.A(
+                [html.I(className="fa-solid fa-arrow-up-right-from-square me-1"), "Live demo"],
+                href=demo,
+                target="_blank",
+                rel="noopener noreferrer",
+                className="btn btn-info btn-sm me-2 mb-2",
+            ),
+        )
     content = [
         html.Div(category.upper(), className="small text-info fw-bold mb-2"),
         html.H2(title, className="mb-3"),
@@ -43,7 +67,7 @@ def render_project(title, category, summary, features, technologies, repository,
                                 html.H4("Project details"),
                                 html.P([html.Strong("Technology: "), technologies]),
                                 html.P([html.Strong("Status: "), status]),
-                                source_action(repository, private),
+                                html.Div(actions),
                             ]
                         ),
                         className="h-100",

@@ -14,6 +14,13 @@ def sidebar():
             [("About", "/"), ("Projects", "/projects"), ("Resume", "/resume")],
         ),
         (
+            "Highlights",
+            [
+                ("TradingPlayground", "/project/trading-playground"),
+                ("RA-StrategyLab", "/project/ra-strategylab"),
+            ],
+        ),
+        (
             "Data Science & Analytics",
             [
                 ("K-Means Clustering", "/app-clustering"),
